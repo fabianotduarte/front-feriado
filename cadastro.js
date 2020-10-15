@@ -15,8 +15,21 @@ function preencheComboBox(lista){
 
     for (i=0; i<lista.length; i++){
         var agencia = lista[i];
-        txtCombo = txtCombo + `<option value=${agencia.id}>${agencia.nome}</option>`;
+        txtCombo = txtCombo + `<option value=${agencia.id}>${agencia.numero} - ${agencia.nome}</option>`;
     }
     txtCombo = txtCombo + `</select>`;
     document.getElementById("divAgencia").innerHTML = txtCombo;
+}
+
+function cadastrarFeriado(){
+    var txtAgencia = document.getElementById("txtAgencia").value;
+    var txtNome    = document.getElementById("txtNome").value;
+    var txtDataIni = document.getElementById("txtDataInicial").value;
+    var txtDataFim = document.getElementById("txtDataFim").value;
+
+    console.log("Agencia = "+txtAgencia);
+    console.log("Nome    = "+txtNome);
+    console.log("Inicio  = "+txtDataIni);
+    console.log("Final   = "+txtDataFim);
+    console.log("-----------------------------");
 }
