@@ -26,7 +26,8 @@ function fazerlogin(){
 
 function trataStatus(res){
     if (res.status == 200){
-        document.getElementById("resultado").innerHTML = "<h4>Usuario Conectado!</h4>";
+        res.json().then(usuario => efetivarLogin(usuario));
+        //document.getElementById("resultado").innerHTML = "<h4>Usuario Conectado!</h4>";
     }
     else if (res.status == 404){
         document.getElementById("resultado").innerHTML = "<h4>Usuario Não Existe</h4>";
@@ -37,4 +38,9 @@ function trataStatus(res){
     else{
         document.getElementById("resultado").innerHTML = "<h4>Erro Desconhecido</h4>";
     }
+}
+
+function efetivarLogin(usuario){
+    console.log(usuario);
+    window.location = "selecao.html";
 }
