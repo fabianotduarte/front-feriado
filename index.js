@@ -41,6 +41,7 @@ function trataStatus(res){
 }
 
 function efetivarLogin(usuario){
-    console.log(usuario);
+    // console.log(usuario);
+    localStorage.setItem("userSF", JSON.stringify(usuario));
     window.location = "selecao.html";
 }
