@@ -27,9 +27,32 @@ function cadastrarFeriado(){
     var txtDataIni = document.getElementById("txtDataInicial").value;
     var txtDataFim = document.getElementById("txtDataFim").value;
 
-    console.log("Agencia = "+txtAgencia);
-    console.log("Nome    = "+txtNome);
-    console.log("Inicio  = "+txtDataIni);
-    console.log("Final   = "+txtDataFim);
-    console.log("-----------------------------");
+    var msgBody = {
+        nome : txtNome,
+        dataInicio : txtDataIni,
+        dataFim    : txtDataFim,
+        agencia : {
+            id : parseInt(txtAgencia)
+        }
+    };
+
+    var cabecalho = {
+        method : "POST",
+        body   : JSON.stringify(msgBody),
+        headers : {
+            "content-type" : "application/json"
+        }
+    };
+
+    fetch("http://localhost:8088/feriados/novo", cabecalho)
+        .then(res => trataResultado(res));
+}
+
+function trataResultado(res){
+    if (res.status == 201) {
+        alert("Feriado Cadastrado com sucesso!");
+    }
+    else{
+        alert("ERRO ao cadastrar Feriado!");
+    }
 }
