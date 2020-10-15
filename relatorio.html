@@ -8,10 +8,34 @@
         integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
     <link rel="stylesheet" href="relatorio.css">
     <script type="text/javascript" src="relatorio.js"></script>
-    <title>.: Cadastro de Novo Feriado :. </title>
+    <title>.: Relatório de feriados :. </title>
 </head>
 
-<body>
+<body onload="carregaInfoRelatorio()">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 text-center">
+                <h3> Relatório de Feriados </h3>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-8">
+                <div class="form-group" id="divAgencia">
+                    
+                </div>
+            </div>
+            <div class="col-4">
+                <button class="btn btn-primary" onclick="recuperarRelatorio()">
+                    Recuperar
+                </button>
+            </div>
+        </div>
+
+        <div id="relatorio">
+            ...
+        </div>
+    </div>
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
         integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
