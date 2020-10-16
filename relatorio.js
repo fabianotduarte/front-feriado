@@ -23,8 +23,14 @@ function preencheComboBox(lista){
 
 
 function recuperarRelatorio(){
+    var url = "http://localhost:8088/feriados";
 
-    fetch("http://localhost:8088/feriados")
+    var idAgencia = document.getElementById("txtAgencia").value;
+    if (idAgencia > 0){ // filtrei pelo id da agencia  - se for -1 eu recupero todos os feriados (já descrito na url)
+        url = url + "/agencia/"+idAgencia;
+    }
+
+    fetch(url)
        .then(res => res.json())
        .then(lista => preencheRelatorio(lista));
 }
