@@ -16,3 +16,8 @@ function carregainfo(){
     document.getElementById("infoUser").innerHTML = infoUser;
 
 }
+
+function logout(){
+    localStorage.removeItem("userSF");
+    window.location = "index.html";
+}
