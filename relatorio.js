@@ -1,19 +1,19 @@
-function carregaInfoRelatorio(){
+function carregaInfoRelatorio() {
     var userStr = localStorage.getItem("userSF");
-    if (!userStr){
+    if (!userStr) {
         window.location = "index.html";
     }
 
     fetch("http://localhost:8088/agencias")
-       .then(res => res.json())
-       .then(lista => preencheComboBox(lista))
+        .then(res => res.json())
+        .then(lista => preencheComboBox(lista))
 }
 
-function preencheComboBox(lista){
+function preencheComboBox(lista) {
 
     var txtCombo = `<select id="txtAgencia" class="form-control">`;
     txtCombo = txtCombo + `<option value="-1"> TODOS OS FERIADOS </option>`;
-    for (i=0; i<lista.length; i++){
+    for (i = 0; i < lista.length; i++) {
         var agencia = lista[i];
         txtCombo = txtCombo + `<option value=${agencia.id}>${agencia.numero} - ${agencia.nome}</option>`;
     }
@@ -22,49 +22,58 @@ function preencheComboBox(lista){
 }
 
 
-function recuperarRelatorio(){
+function recuperarRelatorio() {
     var url = "http://localhost:8088/feriados";
 
     var idAgencia = document.getElementById("txtAgencia").value;
-    if (idAgencia > 0){ // filtrei pelo id da agencia  - se for -1 eu recupero todos os feriados (já descrito na url)
-        url = url + "/agencia/"+idAgencia;
+    if (idAgencia > 0) { // filtrei pelo id da agencia  - se for -1 eu recupero todos os feriados (já descrito na url)
+        url = url + "/agencia/" + idAgencia;
     }
 
     fetch(url)
-       .then(res => res.json())
-       .then(lista => preencheRelatorio(lista));
+        .then(res => res.json())
+        .then(lista => preencheRelatorio(lista));
 }
 
-function preencheRelatorio(lista){
-    var rel="";
-    var classe="linhaPar"
+function preencheRelatorio(lista) {
+
+    if (lista.length == 0) {
+        document.getElementById("relatorio").innerHTML = "Não existem feriados específicos desta agencia cadastrados";
+        return;
+    }
+
+    var rel = "";
+    var classe = "linhaPar"
 
 
-    for (i=0;i<lista.length; i++){
+    for (i = 0; i < lista.length; i++) {
         var feriado = lista[i];
-        if (i%2==0){
+        if (i % 2 == 0) {
             classe = "linhaPar";
         }
-        else{
+        else {
             classe = "linhaIpar";
         }
 
-        rel = rel+ `<div class="row  ${classe}">
-                         <div class="col-2"> ${formataData(feriado.dataInicio)} </div>
-                         <div class="col-2"> ${formataData(feriado.dataFim)} </div>
-                         <div class="col-4"> ${feriado.nome} </div>
-                         <div class="col-4"> ${feriado.agencia.numero} - ${feriado.agencia.nome} </div>
-                    </div>`;
+        rel = rel + `<div class="row  ${classe}">
+                             <div class="col-2"> ${formataData(feriado.dataInicio)} </div>
+                             <div class="col-2"> ${formataData(feriado.dataFim)} </div>
+                             <div class="col-4"> ${feriado.nome} </div>
+                             <div class="col-4"> ${feriado.agencia.numero} - ${feriado.agencia.nome} </div>
+                        </div>`;
 
 
     }
     document.getElementById("relatorio").innerHTML = rel;
+
+
+
 }
 
-function formataData(dataOriginal){
-    var ano = dataOriginal.substr(0,4);
-    var mes = dataOriginal.substr(5,2);
-    var dia = dataOriginal.substr(8,2);
+function formataData(dataOriginal) {
+    var ano = dataOriginal.substr(0, 4);
+    var mes = dataOriginal.substr(5, 2);
+    var dia = dataOriginal.substr(8, 2);
 
     // console.log(dia+'/'+mes+'/'+ano);
 
